@@ -37,6 +37,7 @@ ${private:brace_delimited_scope_prefixed_variable}
 - 2.345
 -2.345
 -1
+-1.
 -0.5
 -.5
 -0
@@ -44,6 +45,7 @@ ${private:brace_delimited_scope_prefixed_variable}
 .5
 0.5
 1
+1.
 2.345
 
 - 0xFF
@@ -56,14 +58,115 @@ ${private:brace_delimited_scope_prefixed_variable}
 0xAA
 0xFF
 
+123KB
+123MB
+123GB
+123TB
+123PB
+-123KB
+-123MB
+-123GB
+-123TB
+-123PB
+
 
 #
 # Not Quite Numeric Literals
 #
 1.1.1
 -1.1.1
+1-1
+1.0-1.0
+1.-1.
+.5-.5
 0xGG
 -0xGG
+Identifer123ContainingNumerals
+
+
+#
+# Operators
+#
+$a -eq $b
+$a -ne $b
+$a -ge $b
+$a -gt $b
+$a -lt $b
+$a -le $b
+$a -like $b
+$a -notlike $b
+$a -match $b
+$a -notmatch $b
+$a -replace $b
+$a -split $b
+$a -contains $b
+$a -notcontains $b
+$a -ieq $b
+$a -ine $b
+$a -ige $b
+$a -igt $b
+$a -ile $b
+$a -ilt $b
+$a -ilike $b
+$a -inotlike $b
+$a -imatch $b
+$a -inotmatch $b
+$a -ireplace $b
+$a -isplit $b
+$a -icontains $b
+$a -inotcontains $b
+$a -ceq $b
+$a -cne $b
+$a -cge $b
+$a -cgt $b
+$a -clt $b
+$a -cle $b
+$a -clike $b
+$a -cnotlike $b
+$a -cmatch $b
+$a -cnotmatch $b
+$a -creplace $b
+$a -csplit $b
+$a -ccontains $b
+$a -cnotcontains $b
+$a -in $b
+$a -notin $b
+$a -is $b
+$a -isnot $b
+$a -as $b
+$a -join $b
+$a -and $b
+$a -or $b
+-not $b
+$a -xor $b
+$a -band $b
+$a -bor $b
+$a -bnot $b
+$a -bxor $b
+$a -f $b
+!$a
+$a = $b
+$a += $b
+$a -= $b
+$a *= $b
+$a /= $b
+$a %= $b
+$a + $b
+$a - $b
+$a * $b
+$a / $b
+$a | $b
+$a % $b
+$a & $b
+[Type]::StaticMember
+$a, $b,$c
+. /some/dotsourced/file.ps1
+
+
+#
+# Not Quite Operators
+#
+$a-eq$b
 
 
 #
@@ -208,11 +311,11 @@ param (
 
 
 #
-# Functions
+# Function Declarations
 #
-function SomeFunction() { }
+function SomeFunctionDeclaration() { }
 
-function SomeFunction(
+function SomeFunctionDeclaration(
     [string]
     $Param1,
 
@@ -225,16 +328,15 @@ function SomeFunction(
 {
 }
 
+
+#
+# Function and Cmdlet Invocations
+#
 SomeFunction $arg1 $arg2 -Param3
 SomeFunction $arg1 $arg2 -Param3:$false
 SomeFunction -Param1 $arg1 -Param3 -Param2 $arg2
 SomeFunction -Param1 $arg1 -Param3:$false -Param2 $arg2
 Some-Dash-Separated-Function $arg1 $arg2 -Param3
-
-
-#
-# Cmdlets
-#
 Verb-Subject $arg1 $arg2 -Param3
 Verb-Subject $arg1 $arg2 -Param3:$false
 Verb-Subject -Param1 $arg1 -Param3 -Param2 $arg2
