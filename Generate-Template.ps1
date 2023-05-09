@@ -21,7 +21,7 @@
 #
 
 
-$outfile = "$PSScriptRoot\template.vim"
+$outfile = "$PSScriptRoot/template.vim"
 
 
 function Out([string] $s)
@@ -407,22 +407,28 @@ Out @'
 foreach ($f in $colors) {
     foreach ($b in $colors) {
         $fnum = $colorNumbers16[$f]
+        $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum ctermbg=$bnum cterm=NONE'"
+        $bhex = $colorHex[$b]
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
     }
 }
 foreach ($f in $lightColors) {
     foreach ($b in $colors) {
         $fnum = $colorNumbers16[$f]
+        $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum ctermbg=$bnum cterm=bold'"
+        $bhex = $colorHex[$b]
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=bold gui=NONE'"
     }
 }
 foreach ($f in $colors) {
     foreach ($b in $lightColors) {
         $fnum = $colorNumbers16[$f]
+        $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
-        Out "let ${f}On${b} = ' ctermfg=$bnum ctermbg=$fnum cterm=bold,reverse'"
+        $bhex = $colorHex[$b]
+        Out "let ${f}On${b} = ' ctermfg=$bnum guifg=$fhex ctermbg=$fnum guibg=$bhex cterm=bold,reverse gui=NONE'"
     }
 }
 
@@ -439,65 +445,30 @@ Out "if &t_Co > 16"
 foreach ($f in $lightColors) {
     foreach ($b in $colors) {
         $fnum = $colorNumbers256[$f]
+        $fhex = $colorHex[$f]
         $bnum = $colorNumbers256[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum ctermbg=$bnum cterm=NONE'"
+        $bhex = $colorHex[$b]
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
     }
 }
 foreach ($f in $colors) {
     foreach ($b in $lightColors) {
         $fnum = $colorNumbers256[$f]
+        $fhex = $colorHex[$f]
         $bnum = $colorNumbers256[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum ctermbg=$bnum cterm=NONE'"
+        $bhex = $colorHex[$b]
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
     }
 }
+Out "let FgNone = ' ctermfg=NONE guifg=NONE' | let BgNone = ' ctermbg=NONE guibg=NONE'"
 foreach ($c in ($colors + $lightColors)) {
     $cnum = $colorNumbers256[$c]
-    Out "let Fg$c = ' ctermfg=$cnum' | let Bg$c = ' ctermbg=$cnum'"
-}
-for ($i = 0; $i -lt 256; $i++) {
-    Out "let Fg$i = ' ctermfg=$i' | let Bg$i = ' ctermbg=$i'"
-}
-Out "endif"
-
-
-Out @'
-
-
-"
-" 16-color combinations and individual 256-color foreground and background
-" colors for GUI
-"
-'@
-Out "if has(`"gui_running`")"
-foreach ($f in $colors) {
-    foreach ($b in $colors) {
-        $fhex = $colorHex[$f]
-        $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' guifg=$fhex guibg=$bhex gui=NONE'"
-    }
-}
-foreach ($f in $lightColors) {
-    foreach ($b in $colors) {
-        $fhex = $colorHex[$f]
-        $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' guifg=$fhex guibg=$bhex gui=NONE'"
-    }
-}
-foreach ($f in $colors) {
-    foreach ($b in $lightColors) {
-        $fhex = $colorHex[$f]
-        $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' guifg=$fhex guibg=$bhex gui=NONE'"
-    }
-}
-foreach ($c in ($colors + $lightColors)) {
-    $cnum = $colorNumbers256[$c]
-    $hex = $color256Hex[$cnum]
-    Out "let Fg$c = ' guifg=$hex' | let Bg$c = ' guibg=$hex'"
+    $chex = $colorHex[$c]
+    Out "let Fg$c = ' ctermfg=$cnum guifg=$chex' | let Bg$c = ' ctermbg=$cnum guibg=$chex'"
 }
 for ($i = 0; $i -lt 256; $i++) {
     $hex = $color256Hex[$i]
-    Out "let Fg$i = ' guifg=$hex' | let Bg$i = ' guibg=$hex'"
+    Out "let Fg$i = ' ctermfg=$i guifg=$hex' | let Bg$i = ' ctermbg=$i guibg=$hex'"
 }
 Out "endif"
 
