@@ -410,7 +410,7 @@ foreach ($f in $colors) {
         $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
         $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE term=NONE'"
     }
 }
 foreach ($f in $lightColors) {
@@ -419,7 +419,7 @@ foreach ($f in $lightColors) {
         $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
         $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=bold gui=NONE'"
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=bold gui=NONE term=NONE'"
     }
 }
 foreach ($f in $colors) {
@@ -428,7 +428,7 @@ foreach ($f in $colors) {
         $fhex = $colorHex[$f]
         $bnum = $colorNumbers16[$b]
         $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' ctermfg=$bnum guifg=$fhex ctermbg=$fnum guibg=$bhex cterm=bold,reverse gui=NONE'"
+        Out "let ${f}On${b} = ' ctermfg=$bnum guifg=$fhex ctermbg=$fnum guibg=$bhex cterm=bold,reverse gui=NONE term=NONE'"
     }
 }
 
@@ -448,7 +448,7 @@ foreach ($f in $lightColors) {
         $fhex = $colorHex[$f]
         $bnum = $colorNumbers256[$b]
         $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE term=NONE'"
     }
 }
 foreach ($f in $colors) {
@@ -457,18 +457,18 @@ foreach ($f in $colors) {
         $fhex = $colorHex[$f]
         $bnum = $colorNumbers256[$b]
         $bhex = $colorHex[$b]
-        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE'"
+        Out "let ${f}On${b} = ' ctermfg=$fnum guifg=$fhex ctermbg=$bnum guibg=$bhex cterm=NONE gui=NONE term=NONE'"
     }
 }
 Out "let FgNone = ' ctermfg=NONE guifg=NONE' | let BgNone = ' ctermbg=NONE guibg=NONE'"
 foreach ($c in ($colors + $lightColors)) {
     $cnum = $colorNumbers256[$c]
     $chex = $colorHex[$c]
-    Out "let Fg$c = ' ctermfg=$cnum guifg=$chex' | let Bg$c = ' ctermbg=$cnum guibg=$chex'"
+    Out "let Fg$c = ' ctermfg=$cnum guifg=$chex' | let Bg$c = ' ctermbg=$cnum guibg=$chex term=NONE'"
 }
 for ($i = 0; $i -lt 256; $i++) {
     $hex = $color256Hex[$i]
-    Out "let Fg$i = ' ctermfg=$i guifg=$hex' | let Bg$i = ' ctermbg=$i guibg=$hex'"
+    Out "let Fg$i = ' ctermfg=$i guifg=$hex' | let Bg$i = ' ctermbg=$i guibg=$hex term=NONE'"
 }
 Out "endif"
 
@@ -499,7 +499,6 @@ Out @'
 if &t_Co > 16 || has("gui_running")
 " exe 'hi Normal' .Fg59 .Bg234 .' cterm=italic'
 " ...
-endif
 '@
 
 
@@ -512,7 +511,6 @@ Out @'
 " Instructions: Override differences from 256-color scheme using guifg, guibg,
 " and gui settings.
 "
-if has("gui_running")
 " exe 'hi Normal' .' guifg=#99AA8A' .' guibg=#22282A' .' gui=italic'
 " ...
 endif
